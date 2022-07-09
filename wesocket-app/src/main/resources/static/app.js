@@ -6,6 +6,7 @@ function connect(username) {
     stompClient.connect({ username: username, }, function() {
         console.log('Web Socket is connected');
         stompClient.subscribe('/users/queue/messages', function(message) {
+            console.log( $("#message").text(message.body));
             $("#message").text(message.body);
         });
     });
@@ -19,6 +20,13 @@ $(function() {
         connect($("#username").val());
     });
     $("#send").click(function() {
-        stompClient.send("/app/hello", {}, $("#name").val());
+        // let message = $("#message1").val();
+        // let username = $("#name").val();
+        //
+        // let request = new XMLResult();
+        // request.open("POST", "http://localhost:8080/send/message")
+        // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        // request.send(JSON.stringify({ "username": username, "message": message }));
+        stompClient.send("/app/hello", {},$("#name").val());
     });
 });
