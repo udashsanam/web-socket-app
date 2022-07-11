@@ -29,13 +29,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 //        // is the endpoint where the client will listen for messages
 //        registry.enableSimpleBroker("/topic");
 
+//        registry.enableSimpleBroker("queue");
+//
+//        // this is the endpoint where the client will sent message to server
+//        registry.setApplicationDestinationPrefixes("/app");
+//
+//        // this is prefix to send to the specifig user default prefix is /user
+//        registry.setUserDestinationPrefix("/users");
+
         registry.enableSimpleBroker("queue");
-
-        // this is the endpoint where the client will sent message to server
         registry.setApplicationDestinationPrefixes("/app");
-
-        // this is prefix to send to the specifig user default prefix is /user
-        registry.setUserDestinationPrefix("/users");
     }
 
     @Override

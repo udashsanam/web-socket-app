@@ -7,6 +7,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,12 +37,12 @@ public class MessageController {
 
     // to send the message to specific user
 
-    @MessageMapping("/hello")
-    public void send(SimpMessageHeaderAccessor sh,  @Payload String username){
-        // this is the user name of the persion who is sending message to the specified user in payload
-        String message1 = "hello from " + sh.getUser().getName();
-        simpMessagingTemplate.convertAndSendToUser(username, "/queue/messages", message1);
-    }
+//    @MessageMapping("/hello")
+//    public void send(SimpMessageHeaderAccessor sh,  @Payload String username){
+//        // this is the user name of the persion who is sending message to the specified user in payload
+//        String message1 = "hello from " + sh.getUser().getName();
+//        simpMessagingTemplate.convertAndSendToUser(username, "/queue/messages", message1);
+//    }
 
 
     // todo: learn to send message with payload
@@ -51,6 +52,13 @@ public class MessageController {
 //        simpMessagingTemplate.convertAndSendToUser(messageDto.getUsername(), "queue/messages", messageDto.getMessage());
 //        return "Successfully send";
 //    }
+
+
+    @MessageMapping("/hello")
+    @SendToUser("/queue/reply")
+    public String send(String username) {
+        return "hello " + username;
+    }
 
 
 }
